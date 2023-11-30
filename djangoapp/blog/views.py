@@ -37,10 +37,16 @@ def page(request):
 
 
 def post(request, slug):
+    post = (
+        Post
+        .objects
+        .filter(is_published=True)
+        .order_by('-pk').filter(slug=slug).first()
+    )
     return render(
         request,
         'blog/pages/post.html',
         {
-            # 'page_obj': page_obj,
+            "post": post
         }
     )
